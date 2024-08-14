@@ -1,0 +1,67 @@
+﻿<div class="filter-dashboard" ng-controller="FilterNodesController as vm">
+    <div class="filter-section" ng-repeat="filterSection in vm.filterSections">
+        <select ng-model="filterSection.mainCategory" ng-change="vm.onMainCategoryChange($index)">
+            <option value="">Select A Filter Type</option>
+            <option value="createdDate">Filter By Created Date</option>
+            <option value="updatedDate">Filter By Updated Date</option>
+            <option value="contentTypes">Filter By Content Types</option>
+        </select>
+
+        <div class="date-filter-container" ng-if="filterSection.mainCategory === 'createdDate' || filterSection.mainCategory === 'updatedDate'">
+            <div class="date-input-wrapper">
+                <label for="from-date">From Date:</label>
+                <input type="date" id="from-date" ng-model="filterSection.startDate" placeholder="dd-mm-yyyy" ng-change="vm.checkDropdowns()">
+            </div>
+            <div class="date-input-wrapper">
+                <label for="to-date">To Date:</label>
+                <input type="date" id="to-date" ng-model="filterSection.endDate" placeholder="dd-mm-yyyy" min="{{filterSection.startDate | date:'yyyy-MM-dd'}}" ng-change="vm.checkDropdowns()">
+            </div>
+            <button class="remove-button" ng-click="vm.removeFilterSection($index)">x</button>
+        </div>
+
+        <div class="filter-select2-custom" ng-if="filterSection.mainCategory === 'contentTypes'">
+            <select id="content-types" select-two ng-model="filterSection.category" ng-options="category.id as category.name for category in vm.filterSections.categories" ng-change="vm.updateSubcategories($index)">
+                <option value="">Select A ContentType</option>
+            </select>
+            <select id="properties" select-two ng-model="filterSection.subcategory" ng-options="subcategory.alias as subcategory.name for subcategory in vm.filterSections[$index].subcategories" ng-change="vm.updateValues($index)">
+                <option value="">Select A Property</option>
+            </select>
+            <select id="values" select-two ng-model="filterSection.value" ng-options="value.id as value.name for value in vm.filterSections[$index].values" ng-change="vm.checkDropdowns()">
+                <option value="">Select A Value</option>
+            </select>
+            <button class="remove-button" ng-click="vm.removeFilterSection($index)">x</button>
+        </div>
+    </div>
+
+    <div class="filter-actions">
+        <button class="add-filter" ng-click="vm.addFilterSection()" ng-disabled="vm.isAddFilterButtonDisabled" ng-class="{ 'disabled-button': vm.isAddFilterButtonDisabled }">+</button>
+        <button class="apply-filters" ng-click="vm.applyFilters()" ng-disabled="vm.isApplyButtonDisabled" ng-class="{ 'disabled-button': vm.isApplyButtonDisabled }">Apply Filters</button>
+    </div>
+
+    <div id="loader" class="loader"></div>
+
+    <div id="result-section">
+        <table id="dataTable" class="display">
+            <thead>
+                <tr>
+                    <th>Node ID</th>
+                    <th>Node Name</th>
+                    <th>Node Type</th>
+                    <!--<th>Link</th>-->
+                    <th>Created Date</th>
+                    <th>Last Updated Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="node in vm.filteredNodes">
+                    <td>{{ node.nodeId }}</td>
+                    <td><a ng-href="{{ node.nodeUmbracoUrl }}" target="_blank">{{ node.nodeName }}</a></td>
+                    <td>{{ node.nodeType }}</td>
+                    <!--<td><a ng-href="{{ node.nodeUrl }}" target="_blank">{{ node.nodeUrl }}</a></td>-->
+                    <td>{{ node.nodeCreatedDate }}</td>
+                    <td>{{ node.nodeUpdatedDate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
