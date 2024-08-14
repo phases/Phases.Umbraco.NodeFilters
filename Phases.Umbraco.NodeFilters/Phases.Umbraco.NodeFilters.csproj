@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ContentTargetFolders>.</ContentTargetFolders>
     <Product>Phases.Umbraco.NodeFilters</Product>
     <PackageId>Phases.Umbraco.NodeFilters</PackageId>
     <Title>Phases.Umbraco.NodeFilters</Title>
     <Description>This package allows you to filter Umbraco nodes based on their created date, updated date, or a property value. For example, you can filter all Umbraco nodes that were created on specific dates using the options provided by this package.
-This package version is for the Umbraco 12+.</Description>
+This package version is for the Umbraco 13+.</Description>
     <PackageTags>umbraco-marketplace;umbraco;umbraco-v10;umbraco-v11;umbraco-v12;umbraco-v13</PackageTags>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
-    <Version>1.0.12.1</Version>
+    <Version>1.0.13.1</Version>
     <Authors>midhun_roy</Authors>
     <Company>Phases</Company>
     <PackageIcon>UmbracoNodeFilters.png</PackageIcon>
@@ -21,8 +21,8 @@ This package version is for the Umbraco 12+.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="12.3.10" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="12.3.10" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="13.3.1" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="13.3.1" />
   </ItemGroup>
 
   <ItemGroup>
